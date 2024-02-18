@@ -8,6 +8,7 @@ double getElapsedTimeSeconds(Timer *timer) {
 }
 
 void startTimer(Timer *timer) {
+  printf("[DEBUG] Timer started\n");
   // Call this function ONCE to start timer.
   timer->startTime = GetTime();
 }
@@ -21,5 +22,5 @@ void updateCurrentTime(Timer *timer) {
 }
 
 void formatTime(Timer *timer) {
-  sprintf(timer->formattedTime, "%f", timer->elapsedTime);
+  sprintf(timer->formattedTime, "%d", (int) timer->elapsedTime);
 }

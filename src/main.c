@@ -13,7 +13,7 @@ int main(void) {
   Timer timer;
   startTimer(&timer);
   Rectangle rect1 = {100, 100, 100, 50};
-  ButtonData button = {"", false, rect1, GREEN, false};
+  ButtonData button = {"HOla", false, rect1, GREEN, false};
 
   while (!WindowShouldClose())
   { 
@@ -22,8 +22,9 @@ int main(void) {
     ClearBackground(RAYWHITE);
     checkButtonState(&button);
     formatTime(&timer);
-    printf("Time: %s", timer.formattedTime);
-    strcpy(button.text, timer.formattedTime);
+    sprintf(button.text, "%d", (int) timer.currentTime);
+  
+    // strcpy(button.text, timer.formattedTime);
     if (getButtonPressed(&button)) {
       button.color = RED; 
     } else {
