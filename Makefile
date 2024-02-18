@@ -1,15 +1,16 @@
 CC = gcc
 CFLAGS = -Wall -Iraylib/src -Lraylib/src -lraylib -lm
 
-SOURCES = src/main.c src/constants.h
+SOURCES = src/main.c src/timer.c src/button_data.c src/functions.c
+HEADERS = src/constants.h src/timer.h src/button_data.h src/functions.h
 EXECUTABLE = game
 
-all: $(SOURCES) $(EXECUTABLE)
+all: $(EXECUTABLE)
 
-run:
+run: $(EXECUTABLE)
 	./$(EXECUTABLE)
 
-$(EXECUTABLE): $(SOURCES)
+$(EXECUTABLE): $(SOURCES) $(HEADERS)
 	$(CC) $(SOURCES) $(CFLAGS) -o $@
 
 clean:
