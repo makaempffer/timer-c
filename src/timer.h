@@ -3,17 +3,14 @@
 #include <stdbool.h>
 
 typedef struct {
-  double startTime;
-  double currentTime;
-  double elapsedTime;
+  int seconds;
   bool isPaused;
-  char formattedTime[8];
+  int tick;
 } Timer;
 
-double getElapsedTimeSeconds(Timer *timer); // Returns the elapsed time in seconds.
-void startTimer(Timer *timer);
 void toggleTimer(Timer *timer);
 void updateCurrentTime(Timer *timer); // Sets current time to the variable
-void formatTime(Timer *timer);
+void tick(Timer *timer);
+void setupTimer(Timer *timer);
 #endif
 

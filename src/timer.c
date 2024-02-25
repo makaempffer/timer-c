@@ -1,26 +1,31 @@
 #include "timer.h"
-#include "raylib.h"
 #include <stdbool.h> 
 #include <stdio.h>
+#include "constants.h"
 
-double getElapsedTimeSeconds(Timer *timer) {  
-  return timer->currentTime - timer->startTime;
-}
-
-void startTimer(Timer *timer) {
-  printf("[DEBUG] Timer started\n");
-  // Call this function ONCE to start timer.
-  timer->startTime = GetTime();
+void setupTimer(Timer *timer) {
+  printf("[DEBUG] Timer set up\n");
+  timer->tick = 0;
+  timer->seconds = 0;
+  timer->isPaused = false;
 }
 
 void toggleTimer(Timer *timer) {
+  printf("[DEBUG] Timer toggled: %d\n", timer->isPaused);
   timer->isPaused = !timer->isPaused;
 }
 
 void updateCurrentTime(Timer *timer) {
-  timer->currentTime = GetTime();
+  if (timer->isPaused) return;
+  if (timer->tick >= FPS) {    
+    printf("[DEBUG] Timer - second elapsed\n");
+    timer->seconds++;
+    timer->tick = 0;
+  }
 }
 
-void formatTime(Timer *timer) {
-  sprintf(timer->formattedTime, "%d", (int) timer->elapsedTime);
+void tick(Timer *timer) {
+  if (!timer->isPaused) {
+    timer->tick++;
+  }
 }

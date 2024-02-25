@@ -5,30 +5,33 @@
 #include "timer.h"
 #include "functions.h"
 #include "button_data.h"
-#include <string.h>
 
 int main(void) {
   InitWindow(800, 600, "raylib [core] example - basic window");
-  SetTargetFPS(60);
+  SetTargetFPS(FPS);
   Timer timer;
-  startTimer(&timer);
+  setupTimer(&timer);
   Rectangle rect1 = {100, 100, 100, 50};
-  ButtonData button = {"HOla", false, rect1, GREEN, false};
+  ButtonData button = {"HOla", false, rect1, BLUE, false};
 
   while (!WindowShouldClose())
   { 
     BeginDrawing();
+    // Timer
+    tick(&timer);
     updateCurrentTime(&timer);
+    // 
     ClearBackground(RAYWHITE);
     checkButtonState(&button);
-    formatTime(&timer);
-    sprintf(button.text, "%d", (int) timer.currentTime);
+    // This line sets the button text to an int.
+    sprintf(button.text, "%d", timer.seconds);
   
     // strcpy(button.text, timer.formattedTime);
     if (getButtonPressed(&button)) {
+      toggleTimer(&timer);
       button.color = RED; 
     } else {
-      button.color = GREEN;
+      button.color = BLUE;
     }
     drawButton(button);
     DrawText("Congrats! You created your first window!", 180, 200, 20, LIGHTGRAY);
